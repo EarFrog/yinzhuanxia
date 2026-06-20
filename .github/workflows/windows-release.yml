@@ -50,4 +50,9 @@ jobs:
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release upload "${env:GITHUB_REF_NAME}" windows/dist/*.exe --clobber
+        run: |
+          gh release view "${env:GITHUB_REF_NAME}" 2>$null
+          if ($LASTEXITCODE -ne 0) {
+            gh release create "${env:GITHUB_REF_NAME}" --title "音转匣 ${env:GITHUB_REF_NAME}" --notes "自动构建的 Windows 测试版安装包。"
+          }
+          gh release upload "${env:GITHUB_REF_NAME}" windows/dist/*.exe --clobber
