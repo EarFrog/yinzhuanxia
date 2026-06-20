@@ -91,6 +91,17 @@ function formatBreakdown(filePaths) {
     .join("、");
 }
 
+function inputFormatOptions() {
+  const formats = new Set([...plainAudioExtensions, ...Object.keys(encryptedExtensions)].map(displayAudioFormat));
+  return [...formats].sort((a, b) => {
+    const ai = preferredFormatDisplayOrder.indexOf(a);
+    const bi = preferredFormatDisplayOrder.indexOf(b);
+    const ax = ai === -1 ? Number.MAX_SAFE_INTEGER : ai;
+    const bx = bi === -1 ? Number.MAX_SAFE_INTEGER : bi;
+    return ax === bx ? a.localeCompare(b) : ax - bx;
+  });
+}
+
 module.exports = {
   encryptedExtensions,
   plainAudioExtensions,
@@ -99,5 +110,6 @@ module.exports = {
   extensionOf,
   isSupportedExtension,
   displayAudioFormat,
-  formatBreakdown
+  formatBreakdown,
+  inputFormatOptions
 };

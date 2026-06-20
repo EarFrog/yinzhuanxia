@@ -6,7 +6,7 @@ contextBridge.exposeInMainWorld("yinzhuanxia", {
   init: () => ipcRenderer.invoke("app:init"),
   setPreferences: (preferences) => ipcRenderer.invoke("app:setPreferences", preferences),
   chooseFiles: () => ipcRenderer.invoke("files:choose"),
-  scanFolder: () => ipcRenderer.invoke("folder:scan"),
+  autoScanMusic: () => ipcRenderer.invoke("music:autoScan"),
   addPaths: (paths) => ipcRenderer.invoke("paths:add", paths),
   chooseOutput: () => ipcRenderer.invoke("output:choose"),
   summary: (paths) => ipcRenderer.invoke("files:summary", paths),
