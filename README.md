@@ -91,7 +91,7 @@
 
 ### Windows
 
-在 Windows 10/11 上安装 Node.js 20+ 后运行：
+在 Windows 10/11 上安装 Node.js 22.13+ 后运行：
 
 ```powershell
 cd windows
