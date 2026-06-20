@@ -1,6 +1,6 @@
 {
   "name": "yinzhuanxia-windows",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "音转匣 Windows 版，本地音频转换与部分 QMC 文件兼容处理。",
   "main": "src/main.js",
   "author": "EraFrog",
