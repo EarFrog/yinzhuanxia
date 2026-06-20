@@ -1,0 +1,57 @@
+{
+  "name": "yinzhuanxia-windows",
+  "version": "0.1.0",
+  "description": "音转匣 Windows 版，本地音频转换与部分 QMC 文件兼容处理。",
+  "main": "src/main.js",
+  "author": "EraFrog",
+  "license": "MIT",
+  "private": true,
+  "packageManager": "pnpm@11.5.3",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test",
+    "pack": "electron-builder --dir --win",
+    "dist": "electron-builder --win nsis portable"
+  },
+  "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0"
+  },
+  "devDependencies": {
+    "electron": "^31.7.7",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.erafrog.yinzhuanxia.windows",
+    "productName": "音转匣",
+    "directories": {
+      "output": "dist"
+    },
+    "asarUnpack": [
+      "node_modules/@ffmpeg-installer/**"
+    ],
+    "files": [
+      "src/**/*",
+      "build/icon.ico",
+      "build/icon.png",
+      "package.json"
+    ],
+    "extraMetadata": {
+      "main": "src/main.js"
+    },
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "artifactName": "Yinzhuanxia-${version}-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "音转匣"
+    }
+  }
+}

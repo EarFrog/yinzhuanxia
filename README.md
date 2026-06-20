@@ -1,6 +1,11 @@
 # 音转匣
 
-音转匣是一款免费开源的 macOS 原生音频转换应用，支持普通音频文件在可用格式之间互相转换，也兼容处理部分 QMC 文件。
+音转匣是一款免费开源的本地音频转换应用，支持普通音频文件在可用格式之间互相转换，也兼容处理部分 QMC 文件。
+
+当前仓库包含两个版本：
+
+- macOS 原生版：`autoMC.xcodeproj`
+- Windows/Electron 版：`windows/`
 
 解密核心基于开源项目 [gongjiehong/QMCDecode](https://github.com/gongjiehong/QMCDecode)，原项目 MIT 许可证保留在 `LICENSE`。
 
@@ -61,6 +66,8 @@
 
 ## 构建
 
+### macOS
+
 在本目录运行：
 
 ```sh
@@ -81,3 +88,28 @@
 ```
 
 默认输出目录是 `~/Music/音转匣 输出`。
+
+### Windows
+
+在 Windows 10/11 上安装 Node.js 20+ 后运行：
+
+```powershell
+cd windows
+npm install
+npm start
+```
+
+打包安装包：
+
+```powershell
+cd windows
+npm run dist
+```
+
+Windows 打包产物会输出到：
+
+```text
+windows/dist/
+```
+
+说明：Windows 版使用 Electron 实现，核心 QMC 解密算法已从 macOS Swift 版移植到 `windows/src/core/`，转码依赖 `@ffmpeg-installer/ffmpeg` 提供的 ffmpeg。

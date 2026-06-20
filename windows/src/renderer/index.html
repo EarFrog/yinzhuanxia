@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>音转匣</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <h1 data-i18n="appTitle">音转匣</h1>
+          <p data-i18n="subtitle">免费开源的本地音频转换工具，支持常见音频互转与部分 QMC 文件兼容处理。</p>
+        </div>
+        <label class="field compact">
+          <span data-i18n="language">语言</span>
+          <select id="languageSelect">
+            <option value="system" data-i18n="followSystem">跟随系统</option>
+            <option value="zh-CN">简体中文</option>
+            <option value="en">English</option>
+            <option value="ja">日本語</option>
+            <option value="ko">한국어</option>
+          </select>
+        </label>
+      </header>
+
+      <section class="controls">
+        <button id="addFilesButton" class="primary" data-i18n="addFiles">添加文件</button>
+        <button id="scanFolderButton" data-i18n="scanFolder">扫描音乐文件</button>
+        <button id="chooseOutputButton" data-i18n="chooseOutput">选择输出目录</button>
+        <button id="clearButton" data-i18n="clear">清空</button>
+        <button id="startButton" class="accent" data-i18n="start">开始转换</button>
+      </section>
+
+      <section class="options">
+        <label class="field">
+          <span data-i18n="outputFormat">输出格式</span>
+          <select id="formatSelect">
+            <option value="original">原始格式</option>
+            <option value="mp3">MP3</option>
+            <option value="flac">FLAC</option>
+            <option value="m4a">M4A</option>
+            <option value="ogg">OGG</option>
+            <option value="wav">WAV</option>
+          </select>
+        </label>
+        <label class="field grow">
+          <span data-i18n="outputDirectory">输出目录</span>
+          <input id="outputInput" type="text" readonly>
+        </label>
+      </section>
+
+      <section id="dropZone" class="dropzone">
+        <div id="emptyState" data-i18n="empty">拖拽音乐文件到这里，或选择文件/文件夹。</div>
+        <table id="fileTable" hidden>
+          <thead>
+            <tr>
+              <th data-i18n="fileName">文件名</th>
+              <th data-i18n="format">格式</th>
+              <th data-i18n="status">状态</th>
+              <th data-i18n="output">输出</th>
+            </tr>
+          </thead>
+          <tbody id="fileRows"></tbody>
+        </table>
+      </section>
+
+      <footer class="statusbar">
+        <span id="summaryText" data-i18n="defaultOutput">默认输出到“音乐/音转匣 输出”。</span>
+        <span id="ffmpegText"></span>
+      </footer>
+    </main>
+    <script src="./app.js"></script>
+  </body>
+</html>

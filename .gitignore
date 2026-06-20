@@ -4,10 +4,16 @@
 
 ## Build generated
 build/
+!windows/build/
+!windows/build/icon.ico
+!windows/build/icon.png
 DerivedData/
 *.app/
 *.dmg
 *.xcresult
+node_modules/
+windows/dist/
+windows/.npm-cache/
 
 ## macOS
 .DS_Store
