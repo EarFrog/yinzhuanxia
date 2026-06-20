@@ -27,13 +27,18 @@
 
       <section class="controls">
         <button id="addFilesButton" class="primary" data-i18n="addFiles">添加文件</button>
-        <button id="scanFolderButton" data-i18n="scanFolder">扫描音乐文件</button>
         <button id="chooseOutputButton" data-i18n="chooseOutput">选择输出目录</button>
         <button id="clearButton" data-i18n="clear">清空</button>
         <button id="startButton" class="accent" data-i18n="start">开始转换</button>
       </section>
 
       <section class="options">
+        <label class="field">
+          <span data-i18n="inputFormat">获取格式</span>
+          <select id="inputFormatSelect">
+            <option value="all" data-i18n="allFormats">全部格式</option>
+          </select>
+        </label>
         <label class="field">
           <span data-i18n="outputFormat">输出格式</span>
           <select id="formatSelect">
@@ -53,17 +58,7 @@
 
       <section id="dropZone" class="dropzone">
         <div id="emptyState" data-i18n="empty">拖拽音乐文件到这里，或选择文件/文件夹。</div>
-        <table id="fileTable" hidden>
-          <thead>
-            <tr>
-              <th data-i18n="fileName">文件名</th>
-              <th data-i18n="format">格式</th>
-              <th data-i18n="status">状态</th>
-              <th data-i18n="output">输出</th>
-            </tr>
-          </thead>
-          <tbody id="fileRows"></tbody>
-        </table>
+        <div id="fileSections" class="file-sections" hidden></div>
       </section>
 
       <footer class="statusbar">

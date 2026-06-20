@@ -5,12 +5,13 @@ const path = require("node:path");
 const os = require("node:os");
 const { app, BrowserWindow, dialog, ipcMain, shell } = require("electron");
 const { convertOne, findFFmpeg } = require("./core/transcoder");
-const { extensionOf, isSupportedExtension, displayAudioFormat, formatBreakdown, outputFormats } = require("./core/constants");
+const { extensionOf, isSupportedExtension, displayAudioFormat, formatBreakdown, outputFormats, inputFormatOptions } = require("./core/constants");
 const { getDictionary, resolveLanguage } = require("./core/i18n");
 
 let mainWindow;
 let preferences = {
   language: "system",
+  inputFormat: "all",
   outputDirectory: path.join(app.getPath("music"), "音转匣 输出"),
   outputFormat: "original"
 };
@@ -84,6 +85,7 @@ ipcMain.handle("app:init", () => {
     preferences,
     language,
     dictionary: getDictionary(preferences.language, app.getLocale()),
+    inputFormats: inputFormatOptions(),
     outputFormats,
     ffmpegAvailable: Boolean(findFFmpeg())
   };
@@ -91,6 +93,7 @@ ipcMain.handle("app:init", () => {
 
 ipcMain.handle("app:setPreferences", (_event, next) => {
   preferences = { ...preferences, ...next };
+  if (typeof preferences.inputFormat !== "string" || preferences.inputFormat.length === 0) preferences.inputFormat = "all";
   if (!outputFormats.includes(preferences.outputFormat)) preferences.outputFormat = "original";
   return {
     preferences,
@@ -108,12 +111,8 @@ ipcMain.handle("files:choose", async () => {
   return fileSummaries(response.filePaths.filter((filePath) => isSupportedExtension(extensionOf(filePath))));
 });
 
-ipcMain.handle("folder:scan", async () => {
-  const response = await dialog.showOpenDialog(mainWindow, {
-    properties: ["openDirectory"]
-  });
-  if (response.canceled || response.filePaths.length === 0) return [];
-  return fileSummaries(walkSupportedFiles(response.filePaths[0]));
+ipcMain.handle("music:autoScan", async () => {
+  return fileSummaries(walkSupportedFiles(app.getPath("music")));
 });
 
 ipcMain.handle("paths:add", (_event, paths) => {

@@ -4,8 +4,9 @@
 
 ## 功能
 
+- 启动后自动递归扫描系统音乐目录。
 - 支持选择文件、选择文件夹、拖拽添加文件。
-- 支持递归扫描常见音频格式和部分 QMC 文件。
+- 支持递归识别常见音频格式和部分 QMC 文件。
 - 支持输出格式：原始格式、MP3、FLAC、M4A、OGG、WAV。
 - 支持普通音频输入：MP3、FLAC、M4A、AAC、OGG、OPUS、WAV、AIFF、CAF。
 - 支持部分 QMC 输入：MFLAC、MGG、QMCFLAC、QMCOGG、QMC0、QMC2、QMC3、BKCMP3、BKCFLAC、TKM 等。
