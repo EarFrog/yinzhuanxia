@@ -1,0 +1,53 @@
+name: Windows Release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Enable pnpm
+        shell: pwsh
+        run: |
+          corepack enable
+          corepack prepare pnpm@11.5.3 --activate
+
+      - name: Install dependencies
+        shell: pwsh
+        working-directory: windows
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Windows app
+        shell: pwsh
+        working-directory: windows
+        run: pnpm run dist
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: yinzhuanxia-windows
+          path: |
+            windows/dist/*.exe
+
+      - name: Upload release assets
+        if: startsWith(github.ref, 'refs/tags/')
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "${env:GITHUB_REF_NAME}" windows/dist/*.exe --clobber
